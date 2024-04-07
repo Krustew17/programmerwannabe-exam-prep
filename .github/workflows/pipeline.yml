@@ -28,6 +28,7 @@ jobs:
 
     run_ui_tests:
         runs-on: ubuntu-latest
+        needs: build_and_test
         steps:
             - name: checkout the repo
               uses: actions/checkout@v4
@@ -36,6 +37,9 @@ jobs:
               with:
                   node-version: 20.x
                   cache: "npm"
+            - name: install npm dependencies
+              run: npm install
+
             - name: install Playwright Browsers
               run: npx playwright install
             - name: Run application in background mode
