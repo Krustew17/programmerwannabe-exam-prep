@@ -1,26 +1,32 @@
 name: Build and test Shopping app
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
 
 jobs:
-  build_and_test:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: checkout the repo
-      uses: actions/checkout@v4
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20.x
-        cache: 'npm'
-    - name: Install NPM dependencies
-      run: npm install
-    - name: Run Unit Tests
-      run: npm run test:unit
-    - name: display Softuni username
-      run: echo ProgrammerWannaBe
+    build_and_test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: checkout the repo
+              uses: actions/checkout@v4
+            - name: Use Node.js 20.x
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
+                  cache: "npm"
+            - name: Install NPM dependencies
+              run: npm install
+            - name: Run Unit Tests
+              run: npm run test:unit
+            - name: display Softuni username
+              run: echo ProgrammerWannaBe
+            - name: install Playwright Browsers
+              run: npx playwright install
+            - name: Run application in background mode
+              run: npm run start &
+            - name: Run UI tests
+              run: npm run test:ui
